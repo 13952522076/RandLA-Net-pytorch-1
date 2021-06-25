@@ -40,6 +40,7 @@ class Tester:
         self.logger = logging.getLogger("Tester")
 
         # load yaml file
+        print(f"==> loading YAML config from : {FLAGS.yaml_config}")
         self.remap_lut = self.load_yaml(FLAGS.yaml_config)
 
         # get_dataset & dataloader
@@ -74,6 +75,7 @@ class Tester:
         self.test_dataset.init_prob()
         self.test_probs = self.init_prob()
         self.test_smooth = 0.98
+        print("==> Finish initialize the Tester.")
 
     def load_yaml(self, path):
         DATA = yaml.safe_load(open(path, 'r'))
@@ -95,8 +97,10 @@ class Tester:
 
     def test(self):
         self.logger.info("Start Testing")
+        print("==> start rolling_predict function ...")
         self.rolling_predict()
         # Merge Probability
+        print("==> start merge_and_store function ...")
         self.merge_and_store()
 
     def rolling_predict(self):
@@ -106,6 +110,7 @@ class Tester:
         with torch.no_grad():
             min_possibility = self.test_dataset.min_possibility
             while np.min(min_possibility) <= 0.5:
+                print(f"np.min(min_possibility) is: {np.min(min_possibility)}")
                 batch_data, input_inds, cloud_inds, min_possibility = next(iter_loader)
                 for key in batch_data:
                     if type(batch_data[key]) is list:
@@ -119,6 +124,7 @@ class Tester:
                 end_points['logits'] = end_points['logits'].transpose(1, 2)
                 # update prediction (multi-thread)
                 self.update_predict(end_points, batch_data, input_inds, cloud_inds)
+            print(f"==> Finish rolling_predict function")
 
     def update_predict(self, end_points, batch_data, input_inds, cloud_inds):
         # Store logits into list
@@ -138,6 +144,7 @@ class Tester:
         self.logger.info(f'mkdir {root_dir}')
 
         N = len(self.test_probs)
+        print(f"==> self.test_probs lens is {N}")
         for j in tqdm(range(N)):
             pred = np.argmax(self.test_probs[j], 1).astype(np.uint32)
             pred += 1
