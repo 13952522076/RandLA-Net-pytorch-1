@@ -62,6 +62,7 @@ def load_label(data_root, sequences, sub_dir_name, ext):
     for sequence in sequences:
         sequence = '{0:02d}'.format(int(sequence))
         label_paths = os.path.join(data_root, str(sequence), sub_dir_name)
+        print(label_paths)
         # populate the label names
         seq_label_names = [os.path.join(dp, f) for dp, dn, fn in os.walk(
             os.path.expanduser(label_paths)) for f in fn if f".{ext}" in f]
