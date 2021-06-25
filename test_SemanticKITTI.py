@@ -108,7 +108,7 @@ class Tester:
 
         iter_loader = iter(self.test_loader)
 
-        iter_len = len([_ for _ in iter_loader])
+        iter_len = len(self.test_loader)
         print(f"test_loader length is {iter_len}")
         mm=0
 
