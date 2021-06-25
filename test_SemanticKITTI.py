@@ -107,7 +107,7 @@ class Tester:
         self.net.eval()  # set model to eval mode (for bn and dp)
 
         iter_loader = iter(self.test_loader)
-    
+
         mm=0
 
         with torch.no_grad():
@@ -115,7 +115,7 @@ class Tester:
             while np.min(min_possibility) <= 0.5:
                 batch_data, input_inds, cloud_inds, min_possibility = next(iter_loader)
                 mm+=1
-                print(f"Next iteration: {mm}| min_possibility: {min_possibility}")
+                print(f"Next iteration: {mm}| min_possibility: {np.min(min_possibility)}")
                 for key in batch_data:
                     if type(batch_data[key]) is list:
                         for i in range(cfg.num_layers):
