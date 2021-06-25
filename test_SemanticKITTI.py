@@ -106,9 +106,9 @@ class Tester:
     def rolling_predict(self):
         self.net.eval()  # set model to eval mode (for bn and dp)
 
-        iter_len = len(self.test_loader)
-        iter_loader = iter(self.test_loader)
 
+        iter_loader = iter(self.test_loader)
+        iter_len = len(list(iter_loader))
 
         print(f"test_loader length is {iter_len}")
         mm=0
