@@ -105,6 +105,7 @@ if __name__ == '__main__':
 
     # get label paths
     label_names = load_label(FLAGS.dataset, FLAGS.sequences, "labels", "npy")
+    print(len(label_names))
     # get predictions paths
     pred_names = load_label(FLAGS.predictions, FLAGS.sequences, "predictions", "npy")
     print(len(pred_names))
