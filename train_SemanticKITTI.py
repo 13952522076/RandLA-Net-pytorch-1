@@ -26,7 +26,7 @@ parser.add_argument('--log_dir', default='log', help='Dump dir to save model che
 parser.add_argument('--max_epoch', type=int, default=100, help='Epoch to run [default: 100]')
 parser.add_argument('--batch_size', type=int, default=5, help='Batch Size during training [default: 5]')
 parser.add_argument('--val_batch_size', type=int, default=30, help='Batch Size during training [default: 30]')
-parser.add_argument('--num_workers', type=int, default=5, help='Number of workers [default: 5]')
+parser.add_argument('--num_workers', type=int, default=16, help='Number of workers [default: 5]')
 FLAGS = parser.parse_args()
 
 
